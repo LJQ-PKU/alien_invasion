@@ -29,8 +29,6 @@ def run_game():
     curtain_bullets = pygame.sprite.Group()
     gf.create_alien(ai_settings,screen,aliens)
 
-
-
     #main loop 单帧循环
     while True:
         gf.check_events(ai_settings,screen,ship,bullets)
