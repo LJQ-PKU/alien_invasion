@@ -25,7 +25,7 @@ def run_game():
                 break
             print('难度无效:(')
         time.sleep(1)
-    time.sleep(3)
+    time.sleep(2)
     pygame.init()
     ai_settings = Settings(mode)
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
