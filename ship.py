@@ -4,7 +4,7 @@ from hit_point import Hitbox
 
 
 class Ship(Sprite):
-    def __init__(self,ai_settings,screen):
+    def __init__(self,ai_settings,screen,config):
         super().__init__()
         '''初始化飞船位置'''
         self.screen = screen
@@ -27,6 +27,7 @@ class Ship(Sprite):
         self.hp = 10
         self.last_hurt_time = 0
         self.invulnerable_time = 1000#ms
+        self.invulnerable = config
 
     def update(self):
         if self.moving_slow:

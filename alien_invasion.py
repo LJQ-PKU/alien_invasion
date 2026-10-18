@@ -19,7 +19,9 @@ def run_game():
         except ValueError as e:
             print('输入无效',e)
         else:
-            if mode >= 1 and mode <= 4:
+            if mode == 0:
+                print('测试模式开启,飞船不会受伤')
+            if mode >= 0 and mode <= 4:
                 break
             print('难度无效:(')
         time.sleep(1)
@@ -32,7 +34,7 @@ def run_game():
 
     bg_color = pygame.Color(ai_settings.bg_color)
     #create ship
-    ship = Ship(ai_settings, screen)
+    ship = Ship(ai_settings, screen, mode == 0)
     #create a group of bullets
     bullets = Group()
     aliens = Group()

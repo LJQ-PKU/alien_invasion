@@ -9,6 +9,8 @@ class Hitbox():
         self.rect.center = ship_rect.center
 
     def hits_any(self, curtain_bullets,ship):
+        if ship.invulnerable:
+            return
         for b in curtain_bullets:
             if self.rect.colliderect(b.rect) and (pygame.time.get_ticks() - ship.last_hurt_time >= ship.invulnerable_time):
                 ship.hp -= 1
