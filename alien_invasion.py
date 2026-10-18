@@ -12,7 +12,17 @@ from alien import Alien
 
 def run_game():
     #初始化+难度设定
-    mode = int(input('选择难度1.easy 2.normal 3.hard 4.lunatic    '))
+    while True:
+        mode_string = input('选择难度\n1.easy\n2.normal\n3.hard\n4.lunatic    ')
+        try:
+            mode = int(mode_string)
+        except ValueError as e:
+            print('输入无效',e)
+        else:
+            if mode >= 1 and mode <= 4:
+                break
+            print('难度无效:(')
+        time.sleep(1)
     time.sleep(3)
     pygame.init()
     ai_settings = Settings(mode)
@@ -45,7 +55,6 @@ def run_game():
             #飞船生命非正时终止
             print('game over')
             break
-
 
 run_game()
 

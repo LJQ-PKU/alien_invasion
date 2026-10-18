@@ -21,6 +21,11 @@ class Alien(Sprite):
         #角速度
         self.omega=0.00003
 
+        #攻击冷却
+        self.fire_cooldown_1 = 40
+        self.fire_cooldown_2 = 250
+        self.fire_cooldown_3 = 40
+
         self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
         self.moving_left = False

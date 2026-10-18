@@ -9,48 +9,39 @@ from bullet import Bullet
 from ship import Ship
 from curtain_bullet import CurtainBullet_1,CurtainBullet_2,CurtainBullet_3
 
-def check_keydown_events(event,ship):
-    #根据键盘与鼠标输入更新运动状态
-    match event.key: 
-        case pygame.K_LSHIFT:
-            ship.moving_slow = True
-        case pygame.K_LEFT:
-            ship.moving_left = True
-        case pygame.K_RIGHT:
-            ship.moving_right = True
-        case pygame.K_UP:
-            ship.moving_up = True
-        case pygame.K_DOWN:
-            ship.moving_down = True
-        case pygame.K_z:
-            ship.firing = True
-
-
-def check_keyup_events(event,ship):
-    #根据键盘与鼠标输入更新运动状态
-    match event.key:
-        case pygame.K_LSHIFT:
-            ship.moving_slow = False
-        case pygame.K_LEFT:
-            ship.moving_left = False
-        case pygame.K_RIGHT:
-            ship.moving_right = False
-        case pygame.K_UP:
-            ship.moving_up = False
-        case pygame.K_DOWN:
-            ship.moving_down = False
-        case pygame.K_z:
-            ship.firing = False
-
 def check_events(ai_settings,screen,ship,bullets):
     for event in pygame.event.get():
         match event.type:
             case pygame.QUIT:
                 sys.exit()
             case pygame.KEYDOWN:
-                check_keydown_events(event,ship)
+                match event.key: 
+                    case pygame.K_LSHIFT:
+                        ship.moving_slow = True
+                    case pygame.K_LEFT:
+                        ship.moving_left = True
+                    case pygame.K_RIGHT:
+                        ship.moving_right = True
+                    case pygame.K_UP:
+                        ship.moving_up = True
+                    case pygame.K_DOWN:
+                        ship.moving_down = True
+                    case pygame.K_z:
+                        ship.firing = True
             case pygame.KEYUP:
-                check_keyup_events(event,ship)
+                match event.key:
+                    case pygame.K_LSHIFT:
+                        ship.moving_slow = False
+                    case pygame.K_LEFT:
+                        ship.moving_left = False
+                    case pygame.K_RIGHT:
+                        ship.moving_right = False
+                    case pygame.K_UP:
+                        ship.moving_up = False
+                    case pygame.K_DOWN:
+                        ship.moving_down = False
+                    case pygame.K_z:
+                        ship.firing = False
 
 
 def update_screen(ai_settings,screen,ship,aliens\
@@ -81,17 +72,17 @@ def curtain_bullets_fire_1(ai_settings,screen,aliens,curtain_bullets):
     for alien in aliens.copy():
         if not alien.firing:
             continue
-        if (pygame.time.get_ticks() - alien.last_fire_time1 >= 40) and pygame.time.get_ticks() < 25000:
+        if (pygame.time.get_ticks() - alien.last_fire_time1 >= alien.fire_cooldown_1) and pygame.time.get_ticks() < 25000:
             new_bullet = CurtainBullet_1(ai_settings,screen)
             curtain_bullets.add(new_bullet)
             alien.last_fire_time1 = pygame.time.get_ticks()
-        if (pygame.time.get_ticks() - alien.last_fire_time2 >= 250 / ai_settings.curtain_bullet_speed) \
+        if (pygame.time.get_ticks() - alien.last_fire_time2 >= alien.fire_cooldown_2 / ai_settings.curtain_bullet_speed) \
                 and 10000 < pygame.time.get_ticks() < 25000:
             for i in range(1,41):
                 new_bullet = CurtainBullet_2(ai_settings,screen,9*i)
                 curtain_bullets.add(new_bullet)
                 alien.last_fire_time2 = pygame.time.get_ticks()
-        if (pygame.time.get_ticks() - alien.last_fire_time2 >= 40 / ai_settings.curtain_bullet_speed) \
+        if (pygame.time.get_ticks() - alien.last_fire_time2 >= alien.fire_cooldown_3 / ai_settings.curtain_bullet_speed) \
                 and 28000 < pygame.time.get_ticks():
             if alien.theta > alien.theta_max:
                 dir = -1 #角度过大时反向旋转

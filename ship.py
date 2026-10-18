@@ -26,6 +26,7 @@ class Ship(Sprite):
         self.last_fire_time = 0
         self.hp = 10
         self.last_hurt_time = 0
+        self.invulnerable_time = 1000#ms
 
     def update(self):
         if self.moving_slow:
