@@ -70,39 +70,37 @@ def update_screen(ai_settings,screen,ship,aliens\
 
 def bullets_fire(ai_settings,screen,ship,bullets):
     #飞船开火
-    now = pygame.time.get_ticks()
-    if (now - ship.last_fire_time >= ai_settings.bullet_interval) and ship.firing:
+    if (pygame.time.get_ticks() - ship.last_fire_time >= ai_settings.bullet_interval) and ship.firing:
         new_bullet = Bullet(ai_settings,screen,ship)
         bullets.add(new_bullet)
-        ship.last_fire_time = now
+        ship.last_fire_time = pygame.time.get_ticks()
 
 
 def curtain_bullets_fire_1(ai_settings,screen,aliens,curtain_bullets):
-    now = pygame.time.get_ticks()
     dir = 1 #旋转方向
     for alien in aliens.copy():
         if not alien.firing:
             continue
-        if (now - alien.last_fire_time1 >= 40) and now < 25000:
+        if (pygame.time.get_ticks() - alien.last_fire_time1 >= 40) and pygame.time.get_ticks() < 25000:
             new_bullet = CurtainBullet_1(ai_settings,screen)
             curtain_bullets.add(new_bullet)
-            alien.last_fire_time1 = now
-        if (now - alien.last_fire_time2 >= 250 / ai_settings.curtain_bullet_speed) \
-                and 10000 < now < 25000:
+            alien.last_fire_time1 = pygame.time.get_ticks()
+        if (pygame.time.get_ticks() - alien.last_fire_time2 >= 250 / ai_settings.curtain_bullet_speed) \
+                and 10000 < pygame.time.get_ticks() < 25000:
             for i in range(1,41):
                 new_bullet = CurtainBullet_2(ai_settings,screen,9*i)
                 curtain_bullets.add(new_bullet)
-                alien.last_fire_time2 = now
-        if (now - alien.last_fire_time2 >= 40 / ai_settings.curtain_bullet_speed) \
-                and 28000 < now:
+                alien.last_fire_time2 = pygame.time.get_ticks()
+        if (pygame.time.get_ticks() - alien.last_fire_time2 >= 40 / ai_settings.curtain_bullet_speed) \
+                and 28000 < pygame.time.get_ticks():
             if alien.theta > alien.theta_max:
                 dir = -1 #角度过大时反向旋转
             if alien.theta < alien.theta_min:
                 dir = 1  #角度过小时正向旋转
             for i in range(1,30):
-                new_bullet = CurtainBullet_3(ai_settings,screen,12*i+now*alien.theta)
+                new_bullet = CurtainBullet_3(ai_settings,screen,12*i+pygame.time.get_ticks()*alien.theta)
                 curtain_bullets.add(new_bullet)
-                alien.last_fire_time2 = now
+                alien.last_fire_time2 = pygame.time.get_ticks()
                 alien.theta += alien.omega * dir
 
 def bullets_in_screen(curtain_bullet_rect,ai_settings):

@@ -12,7 +12,7 @@ class Alien(Sprite):
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx
         self.rect.top = self.screen_rect.top
-        self.hp = self.ai_settings.alien_hp
+        self.hp = ai_settings.alien_hp
         self.theta = 0
 
         #角度范围
