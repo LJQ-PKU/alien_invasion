@@ -16,7 +16,7 @@ def run_game():
     time.sleep(3)
     pygame.init()
     ai_settings = Settings(mode)
-    screen = pygame.display.set_mode(ai_settings.screen_width, ai_settings.screen_height)
+    screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     clock = pygame.time.Clock()
     pygame.display.set_caption('alien invasion')
 
@@ -37,7 +37,7 @@ def run_game():
         gf.curtain_fire(aliens)
         ship.update()
         gf.bullets_fire(ai_settings,screen,ship,bullets)
-        gf.update_bullets(bullets,aliens,ship,curtain_bullets,ai_settings)
+        gf.update_bullets(bullets,aliens,curtain_bullets,ai_settings)
         gf.curtain_bullets_fire_1(ai_settings,screen,aliens,curtain_bullets)
         gf.check_ship_hit(ship, curtain_bullets)
         gf.update_screen(ai_settings,screen,ship,aliens,bullets,curtain_bullets)
