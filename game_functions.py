@@ -84,15 +84,15 @@ def curtain_bullets_fire_1(ai_settings,screen,aliens,curtain_bullets):
                 alien.last_fire_time2 = pygame.time.get_ticks()
         if (pygame.time.get_ticks() - alien.last_fire_time2 >= alien.fire_cooldown_3 / ai_settings.curtain_bullet_speed) \
                 and 28000 < pygame.time.get_ticks():
-            if alien.theta > alien.theta_max:
+            if alien.omega > alien.omega_max:
                 dir = -1 #角度过大时反向旋转
-            if alien.theta < alien.theta_min:
+            if alien.omega < alien.omega_min:
                 dir = 1  #角度过小时正向旋转
             for i in range(1,30):
-                new_bullet = CurtainBullet_3(ai_settings,screen,12*i+pygame.time.get_ticks()*alien.theta)
+                new_bullet = CurtainBullet_3(ai_settings,screen,12*i+pygame.time.get_ticks()*alien.omega)
                 curtain_bullets.add(new_bullet)
                 alien.last_fire_time2 = pygame.time.get_ticks()
-                alien.theta += alien.omega * dir
+                alien.omega += alien.beta * dir
 
 def bullets_in_screen(curtain_bullet_rect,ai_settings):
     #判定子弹是否仍在屏幕内

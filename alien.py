@@ -13,13 +13,13 @@ class Alien(Sprite):
         self.rect.centerx = self.screen_rect.centerx
         self.rect.top = self.screen_rect.top
         self.hp = ai_settings.alien_hp
-        self.theta = 0
+        self.omega = 0
 
         #角度范围
-        self.theta_max=20
-        self.theta_min=-12
+        self.omega_max=20
+        self.omega_min=-12
         #角速度
-        self.omega=0.00003
+        self.beta=0.00003
 
         #攻击冷却
         self.fire_cooldown_1 = 40
