@@ -11,44 +11,46 @@ from curtain_bullet import CurtainBullet_1,CurtainBullet_2,CurtainBullet_3
 
 def check_keydown_events(event,ship):
     #根据键盘与鼠标输入更新运动状态
-    if event.key == pygame.K_LSHIFT:
-        ship.moving_slow = True
-    if event.key == pygame.K_LEFT:
-        ship.moving_left = True
-    if event.key == pygame.K_RIGHT:
-        ship.moving_right = True
-    if event.key == pygame.K_UP:
-        ship.moving_up = True
-    if event.key == pygame.K_DOWN:
-        ship.moving_down = True
-    if event.key == pygame.K_z:
-        ship.firing = True
-
+    match event.key: 
+        case pygame.K_LSHIFT:
+            ship.moving_slow = True
+        case pygame.K_LEFT:
+            ship.moving_left = True
+        case pygame.K_RIGHT:
+            ship.moving_right = True
+        case pygame.K_UP:
+            ship.moving_up = True
+        case pygame.K_DOWN:
+            ship.moving_down = True
+        case pygame.K_z:
+            ship.firing = True
 
 
 def check_keyup_events(event,ship):
     #根据键盘与鼠标输入更新运动状态
-    if event.key == pygame.K_LSHIFT:
-        ship.moving_slow = False
-    if event.key == pygame.K_LEFT:
-        ship.moving_left = False
-    if event.key == pygame.K_RIGHT:
-        ship.moving_right = False
-    if event.key == pygame.K_UP:
-        ship.moving_up = False
-    if event.key == pygame.K_DOWN:
-        ship.moving_down = False
-    if event.key == pygame.K_z:
-        ship.firing = False
+    match event.key:
+        case pygame.K_LSHIFT:
+            ship.moving_slow = False
+        case pygame.K_LEFT:
+            ship.moving_left = False
+        case pygame.K_RIGHT:
+            ship.moving_right = False
+        case pygame.K_UP:
+            ship.moving_up = False
+        case pygame.K_DOWN:
+            ship.moving_down = False
+        case pygame.K_z:
+            ship.firing = False
 
 def check_events(ai_settings,screen,ship,bullets):
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event,ship)
-        elif event.type == pygame.KEYUP:
-            check_keyup_events(event,ship)
+        match event.type:
+            case pygame.QUIT:
+                sys.exit()
+            case pygame.KEYDOWN:
+                check_keydown_events(event,ship)
+            case pygame.KEYUP:
+                check_keyup_events(event,ship)
 
 
 def update_screen(ai_settings,screen,ship,aliens\
@@ -79,7 +81,7 @@ def curtain_bullets_fire_1(ai_settings,screen,aliens,curtain_bullets):
     now = pygame.time.get_ticks()
     dir = 1 #旋转方向
     for alien in aliens.copy():
-        if not alien.firing :
+        if not alien.firing:
             continue
         if (now - alien.last_fire_time1 >= 40) and now < 25000:
             new_bullet = CurtainBullet_1(ai_settings,screen)
@@ -129,8 +131,6 @@ def update_bullets(bullets,aliens,\
     for curtain_bullet in curtain_bullets.copy():
         if not bullets_in_screen(curtain_bullet.rect,ai_settings):
             curtain_bullets.remove(curtain_bullet)
-
-
 
     collisions = pygame.sprite.groupcollide(bullets,aliens,True,False)
     for collision in collisions:

@@ -12,7 +12,7 @@ from alien import Alien
 
 def run_game():
     #初始化+难度设定
-    mode = int(input('选择难度：1.easy 2.normal 3.hard 4.lunatic：'))
+    mode = int(input('选择难度1.easy 2.normal 3.hard 4.lunatic   '))
     time.sleep(3)
     pygame.init()
     ai_settings = Settings(mode)

@@ -1,11 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
 
-import pygame
-
-import ship
-
-
 class Hitbox():
     def __init__(self, size=6):
         self.rect = pygame.Rect(0, 0, size, size)
