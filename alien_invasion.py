@@ -14,17 +14,17 @@ def run_game():
 
     #难度设定
     while True:
-        mode_string = input('选择难度\n1.easy\n2.normal\n3.hard\n4.lunatic    ')
+        mode_string = input('选择难度\n1.easy\n2.normal\n3.hard\n4.lunatic\n    ')
         try:
             mode = int(mode_string)
         except ValueError as e:
-            print('输入无效',e)
+            print('输入无效',str(e),'\n')
         else:
             if mode == 0:
-                print('测试模式开启,飞船不会受伤')
+                print('测试模式开启,飞船不会受伤\n')
             if mode >= 0 and mode <= 4:
                 break
-            print('难度无效:(')
+            print('难度无效:(\n')
         finally:
             time.sleep(2)
 
@@ -55,7 +55,7 @@ def run_game():
 
         if ship.hp <= 0:
             #飞船生命非正时结束游戏
-            print('game over')
+            print('game over\n')
             break
 
 run_game()

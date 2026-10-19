@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 
 class Alien(Sprite):
     def __init__(self,ai_settings,screen):
-        #初始化位置与状态
+        #初始化
         super().__init__()
         self.ai_settings = ai_settings
         self.screen = screen
@@ -26,6 +26,7 @@ class Alien(Sprite):
         self.fire_cooldown_2 = 250
         self.fire_cooldown_3 = 40
 
+        #初始化位置与状态
         self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
         self.moving_left = False

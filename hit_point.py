@@ -12,15 +12,19 @@ class Hitbox():
 
     def hits_any(self, curtain_bullets,ship):
         #伤害判定
+        #测试模式下不进行伤害判定
         if ship.invulnerable:
             return
+        #无敌时间内不进行伤害判定
         if pygame.time.get_ticks() - ship.last_hurt_time < ship.invulnerable_time:
             return
         for b in curtain_bullets:
             if self.rect.colliderect(b.rect):
                 ship.hp -= 1
                 print('get hurt! hp='+str(ship.hp))
+                #更新上次受伤时间
                 ship.last_hurt_time = pygame.time.get_ticks()
+                #子弹造成伤害后移除
                 b.kill()
 
     def draw(self, screen):
