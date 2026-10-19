@@ -15,10 +15,10 @@ class Alien(Sprite):
         self.hp = ai_settings.alien_hp
         self.omega = 0
 
-        #角度范围
+        #角速度范围
         self.omega_max=20
         self.omega_min=-12
-        #角速度
+        #角加速度
         self.beta=0.00003
 
         #攻击冷却

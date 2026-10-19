@@ -106,8 +106,7 @@ def bullets_in_screen(curtain_bullet_rect,ai_settings):
         return False
     return True
 
-def update_bullets(bullets,aliens,\
-                   curtain_bullets,ai_settings):
+def update_bullets(bullets,aliens,curtain_bullets,ai_settings):
     #子弹相关判定:消失 伤害
     bullets.update()
     curtain_bullets.update()
