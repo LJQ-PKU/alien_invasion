@@ -10,14 +10,17 @@ class Hitbox():
         #更新碰撞箱位置
         self.rect.center = ship_rect.center
 
-    def hits_any(self, curtain_bullets,ship):
+    def hits_any(self, curtain_bullets, ship):
         #伤害判定
+
         #测试模式下不进行伤害判定
         if ship.invulnerable:
             return
+        
         #无敌时间内不进行伤害判定
         if pygame.time.get_ticks() - ship.last_hurt_time < ship.invulnerable_time:
             return
+        
         for b in curtain_bullets:
             if self.rect.colliderect(b.rect):
                 ship.hp -= 1

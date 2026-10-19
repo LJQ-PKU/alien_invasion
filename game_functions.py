@@ -10,6 +10,7 @@ from ship import Ship
 from curtain_bullet import CurtainBullet_1,CurtainBullet_2,CurtainBullet_3
 
 def check_events(ai_settings,screen,ship,bullets):
+    #键盘输入处理
     for event in pygame.event.get():
         match event.type:
             case pygame.QUIT:
@@ -50,7 +51,6 @@ def update_screen(ai_settings,screen,ship,aliens\
     screen.fill(ai_settings.bg_color)
     ship.blitme()
     ship.hitbox.draw(screen)
-
     for bullet in bullets:
         bullet.draw_bullet()
     for alien in aliens:
@@ -61,7 +61,9 @@ def update_screen(ai_settings,screen,ship,aliens\
 
 def bullets_fire(ai_settings,screen,ship,bullets):
     #飞船开火
-    if (pygame.time.get_ticks() - ship.last_fire_time >= ai_settings.bullet_interval) and ship.firing:
+    if not ship.firing:
+        return
+    if pygame.time.get_ticks() - ship.last_fire_time >= ai_settings.bullet_interval:
         new_bullet = Bullet(ai_settings,screen,ship)
         bullets.add(new_bullet)
         ship.last_fire_time = pygame.time.get_ticks()

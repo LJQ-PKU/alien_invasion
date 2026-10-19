@@ -67,7 +67,7 @@ class Ship(Sprite):
         self.hitbox.follow(self.rect)
     
     def blitme(self):
-        '''plot the ship'''
+        #绘制ship
         self.screen.blit(self.ship,self.rect)
 
 

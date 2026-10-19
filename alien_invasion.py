@@ -28,13 +28,14 @@ def run_game():
         finally:
             time.sleep(2)
 
-    #初始化
+    #进程初始化
     pygame.init()
     ai_settings = Settings(mode)
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     clock = pygame.time.Clock()
     pygame.display.set_caption('alien invasion')
 
+    #单位初始化
     ship = Ship(ai_settings, screen, mode == 0)
     bullets = Group()
     aliens = Group()
