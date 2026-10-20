@@ -33,9 +33,8 @@ class Ship(Sprite):
         self.last_fire_time = 0
 
         #参数初始化
-        self.hp = 10
+        self.hp = Settings.get_Const("ship_max_hp")
         self.last_hurt_time = 0
-        self.invulnerable_time = 1000#ms
         self.invulnerable = (mode == 0)
 
     def update(self):

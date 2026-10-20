@@ -76,27 +76,27 @@ def curtain_bullets_fire_1(screen,aliens,curtain_bullets,mode):
     for alien in aliens.copy():
         if not alien.firing:
             continue
-        if (pygame.time.get_ticks() - alien.last_fire_time1 >= alien.fire_cooldown_1) and pygame.time.get_ticks() < 25000:
+        if (pygame.time.get_ticks() - alien.last_fire_time1 >= Settings.get_Const("alien_fire_cooldown_1")) and pygame.time.get_ticks() < 25000:
             new_bullet = CurtainBullet_1(screen,mode)
             curtain_bullets.add(new_bullet)
             alien.last_fire_time1 = pygame.time.get_ticks()
-        if (pygame.time.get_ticks() - alien.last_fire_time2 >= alien.fire_cooldown_2 / curtain_bullet_speed) \
+        if (pygame.time.get_ticks() - alien.last_fire_time2 >= Settings.get_Const("alien_fire_cooldown_2") / curtain_bullet_speed) \
                 and 10000 < pygame.time.get_ticks() < 25000:
             for i in range(1,41):
                 new_bullet = CurtainBullet_2(screen,9*i,mode)
                 curtain_bullets.add(new_bullet)
                 alien.last_fire_time2 = pygame.time.get_ticks()
-        if (pygame.time.get_ticks() - alien.last_fire_time2 >= alien.fire_cooldown_3 / curtain_bullet_speed) \
+        if (pygame.time.get_ticks() - alien.last_fire_time2 >= Settings.get_Const("alien_fire_cooldown_3") / curtain_bullet_speed) \
                 and 28000 < pygame.time.get_ticks():
-            if alien.omega > alien.omega_max:
+            if alien.omega > Settings.get_Const("alien_omega_max"):
                 dir = -1 #角度过大时反向旋转
-            if alien.omega < alien.omega_min:
+            if alien.omega < Settings.get_Const("alien_omega_min"):
                 dir = 1  #角度过小时正向旋转
             for i in range(1,30):
                 new_bullet = CurtainBullet_3(screen,12*i+pygame.time.get_ticks()*alien.omega,mode)
                 curtain_bullets.add(new_bullet)
                 alien.last_fire_time2 = pygame.time.get_ticks()
-                alien.omega += alien.beta * dir
+                alien.omega += Settings.get_Const("alien_beta") * dir
 
 def bullets_in_screen(curtain_bullet_rect):
     #判定子弹是否仍在屏幕内

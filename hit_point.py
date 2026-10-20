@@ -19,7 +19,7 @@ class Hitbox():
             return
         
         #无敌时间内不进行伤害判定
-        if pygame.time.get_ticks() - ship.last_hurt_time < ship.invulnerable_time:
+        if pygame.time.get_ticks() - ship.last_hurt_time < Settings.get_Const("ship_invulnerable_time"):
             return
         
         for b in curtain_bullets:

@@ -12,20 +12,9 @@ class Alien(Sprite):
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx
         self.rect.top = self.screen_rect.top
-        self.hp = Settings.get_Const("alien_hp")
+        self.hp = Settings.get_Const("alien_max_hp")
         self.omega = 0
         self.alien_speed = Settings.get_Const("alien_speed")
-
-        #角速度范围
-        self.omega_max=20
-        self.omega_min=-12
-        #角加速度
-        self.beta=0.00003
-
-        #攻击冷却
-        self.fire_cooldown_1 = 40
-        self.fire_cooldown_2 = 250
-        self.fire_cooldown_3 = 40
 
         #初始化位置与状态
         self.centerx = float(self.rect.centerx)
