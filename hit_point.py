@@ -1,16 +1,17 @@
 import pygame
 from pygame.sprite import Sprite
+from settings import Settings
 
 class Hitbox():
-    def __init__(self, size=6):
+    def __init__(self,size=6):
         #初始化碰撞箱
         self.rect = pygame.Rect(0, 0, size, size)
 
-    def follow(self, ship_rect):
+    def follow(self,ship_rect):
         #更新碰撞箱位置
         self.rect.center = ship_rect.center
 
-    def hits_any(self, curtain_bullets, ship):
+    def hits_any(self,curtain_bullets,ship):
         #伤害判定
 
         #测试模式下不进行伤害判定
@@ -30,6 +31,6 @@ class Hitbox():
                 #子弹造成伤害后移除
                 b.kill()
 
-    def draw(self, screen):
+    def draw(self,screen):
         #绘制
         pygame.draw.rect(screen, (0, 255, 255), self.rect)

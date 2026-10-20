@@ -9,12 +9,11 @@ import game_functions as gf
 from bullet import Bullet
 from alien import Alien
 
-
 def run_game():
 
     #难度设定
     while True:
-        mode_string = input('选择难度\n1.easy\n2.normal\n3.hard\n4.lunatic\n    ')
+        mode_string = input('选择难度\n1.easy\n2.normal\n3.hard\n4.lunatic\n')
         try:
             mode = int(mode_string)
         except ValueError as e:
@@ -30,29 +29,28 @@ def run_game():
 
     #进程初始化
     pygame.init()
-    ai_settings = Settings(mode)
-    screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
+    screen = pygame.display.set_mode((Settings.get_Const("screen_width"), Settings.get_Const("screen_height")))
     clock = pygame.time.Clock()
     pygame.display.set_caption('alien invasion')
 
     #单位初始化
-    ship = Ship(ai_settings, screen, mode == 0)
+    ship = Ship(screen, mode)
     bullets = Group()
     aliens = Group()
     curtain_bullets = pygame.sprite.Group()
-    gf.create_alien(ai_settings,screen,aliens)
+    gf.create_alien(screen,aliens)
 
     #单帧循环
     while True:
-        gf.check_events(ai_settings,screen,ship,bullets)
+        gf.check_events(ship)
         gf.curtain_fire(aliens)
         ship.update()
-        gf.bullets_fire(ai_settings,screen,ship,bullets)
-        gf.update_bullets(bullets,aliens,curtain_bullets,ai_settings)
-        gf.curtain_bullets_fire_1(ai_settings,screen,aliens,curtain_bullets)
+        gf.bullets_fire(screen,ship,bullets)
+        gf.update_bullets(bullets,aliens,curtain_bullets,)
+        gf.curtain_bullets_fire_1(screen,aliens,curtain_bullets,mode)
         gf.check_ship_hit(ship, curtain_bullets)
-        gf.update_screen(ai_settings,screen,ship,aliens,bullets,curtain_bullets)
-        clock.tick(ai_settings.frame_time)
+        gf.update_screen(screen,ship,aliens,bullets,curtain_bullets)
+        clock.tick(Settings.get_Const("frame_time"))
 
         if ship.hp <= 0:
             #飞船生命非正时结束游戏

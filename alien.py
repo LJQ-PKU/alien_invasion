@@ -1,19 +1,20 @@
 import pygame
 from pygame.sprite import Sprite
+from settings import Settings
 
 class Alien(Sprite):
-    def __init__(self,ai_settings,screen):
+    def __init__(self,screen):
         #初始化
         super().__init__()
-        self.ai_settings = ai_settings
         self.screen = screen
         self.alien = pygame.image.load('images/alien.bmp')
         self.rect = self.alien.get_rect()
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx
         self.rect.top = self.screen_rect.top
-        self.hp = ai_settings.alien_hp
+        self.hp = Settings.get_Const("alien_hp")
         self.omega = 0
+        self.alien_speed = Settings.get_Const("alien_speed")
 
         #角速度范围
         self.omega_max=20
@@ -41,13 +42,13 @@ class Alien(Sprite):
     def update(self):
         #更新位置
         if self.moving_left:
-            self.centerx -= self.ai_settings.alien_speed
+            self.centerx -= self.alien_speed
         if self.moving_right:
-            self.centerx += self.ai_settings.alien_speed
+            self.centerx += self.alien_speed
         if self.moving_up:
-            self.centery -= self.ai_settings.alien_speed
+            self.centery -= self.alien_speed
         if self.moving_down:
-            self.centery += self.ai_settings.alien_speed
+            self.centery += self.alien_speed
 
 
     def blitme(self):

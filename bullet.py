@@ -1,8 +1,9 @@
 import pygame
 from pygame.sprite import Sprite
+from settings import Settings
 
 class Bullet(Sprite):
-    def __init__(self,ai_settings,screen,ship):
+    def __init__(self,screen,ship):
         #初始化
         super(Bullet,self).__init__()
 
@@ -18,7 +19,7 @@ class Bullet(Sprite):
         self.x = float(self.rect.x)
 
         #参数初始化
-        self.speed = ai_settings.bullet_speed
+        self.speed = Settings.get_Const("bullet_speed")
 
     def update(self):
         #更新位置(背景子弹始终是下降的)
