@@ -5,7 +5,7 @@ from settings import Settings
 class Bullet(Sprite):
     def __init__(self,screen,ship):
         #初始化
-        super(Bullet,self).__init__()
+        super().__init__()
 
         #显示初始化
         self.bullet = pygame.image.load('images/bullet.bmp')
