@@ -25,15 +25,30 @@ class Settings:
         #bullet参数设置
         "bullet_speed":1.5,
         "bullet_interval":50,
-        "speed_settings":[0.5,0.25,0.5,0.65,0.75],
+        
         
         #单帧时间(ms)
         "frame_time":600
-    }
-    
+    }#所有常量
+
+    _mode = 1
+    _speed_settings = [0.5,0.25,0.5,0.65,0.75]
+    _ship_invulnerable = False
+
 
     def get_Const(constname):
         return Settings._Setting[constname]
 
-    def get_speed(mode):
-        return Settings._Setting["speed_settings"][mode]
+    def get_speed():
+        return Settings._speed_settings[Settings._mode]
+
+    def set_game_mode(mode_input):
+        Settings._mode = mode_input
+        return
+
+    def set_ship_invulnerable():
+        Settings._ship_invulnerable = True
+        return
+
+    def ship_invulnerable():
+        return Settings._ship_invulnerable

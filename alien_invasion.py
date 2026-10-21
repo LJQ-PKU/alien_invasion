@@ -21,6 +21,7 @@ def run_game():
         else:
             if mode == 0:
                 print('测试模式开启,飞船不会受伤\n')
+                Settings.set_ship_invulnerable()
             if mode >= 0 and mode <= 4:
                 break
             print('难度无效:(\n')
@@ -32,9 +33,10 @@ def run_game():
     screen = pygame.display.set_mode((Settings.get_Const("screen_width"), Settings.get_Const("screen_height")))
     clock = pygame.time.Clock()
     pygame.display.set_caption('alien invasion')
+    Settings.set_game_mode(mode)
 
     #单位初始化
-    ship = Ship(screen, mode)
+    ship = Ship(screen)
     bullets = Group()
     aliens = Group()
     curtain_bullets = pygame.sprite.Group()
@@ -46,9 +48,9 @@ def run_game():
         gf.curtain_fire(aliens)
         ship.update()
         gf.bullets_fire(screen,ship,bullets)
-        gf.update_bullets(bullets,aliens,curtain_bullets,)
-        gf.curtain_bullets_fire_1(screen,aliens,curtain_bullets,mode)
-        gf.check_ship_hit(ship, curtain_bullets)
+        gf.update_bullets(bullets,aliens,curtain_bullets)
+        gf.curtain_bullets_fire_1(screen,aliens,curtain_bullets)
+        gf.check_ship_hit(ship,curtain_bullets)
         gf.update_screen(screen,ship,aliens,bullets,curtain_bullets)
         clock.tick(Settings.get_Const("frame_time"))
 

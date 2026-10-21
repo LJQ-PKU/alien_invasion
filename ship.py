@@ -5,7 +5,7 @@ from settings import Settings
 
 class Ship(Sprite):
     
-    def __init__(self,screen,mode):
+    def __init__(self,screen):
         super().__init__()
 
         #初始化
@@ -35,7 +35,6 @@ class Ship(Sprite):
         #参数初始化
         self.hp = Settings.get_Const("ship_max_hp")
         self.last_hurt_time = 0
-        self.invulnerable = (mode == 0)
 
     def update(self):
         if self.moving_slow:

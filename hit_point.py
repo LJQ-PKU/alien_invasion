@@ -15,7 +15,7 @@ class Hitbox():
         #伤害判定
 
         #测试模式下不进行伤害判定
-        if ship.invulnerable:
+        if Settings.ship_invulnerable():
             return
         
         #无敌时间内不进行伤害判定

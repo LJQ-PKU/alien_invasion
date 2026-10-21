@@ -5,7 +5,7 @@ from pygame.sprite import Sprite
 from settings import Settings
 
 class CurtainBullet_1(Sprite):
-    def __init__(self,screen,mode):
+    def __init__(self,screen):
         super().__init__()
         self.screen = screen
         self.curtain_bullet = pygame.image.load('images/curtain_bullet.bmp')
@@ -17,7 +17,7 @@ class CurtainBullet_1(Sprite):
 
         #速度设定
         self.speed_factor_1 = 1
-        self.curtain_bullet_speed = Settings.get_speed(mode) * self.speed_factor_1
+        self.curtain_bullet_speed = Settings.get_speed() * self.speed_factor_1
 
     def update(self):
         self.y += self.curtain_bullet_speed
@@ -29,7 +29,7 @@ class CurtainBullet_1(Sprite):
 ####################################################
 
 class CurtainBullet_2(Sprite):
-    def __init__(self,screen,angle,mode):
+    def __init__(self,screen,angle):
         super().__init__()
         self.screen = screen
         self.curtain_bullet = pygame.image.load('images/curtain_bullet2.bmp')
@@ -43,7 +43,7 @@ class CurtainBullet_2(Sprite):
 
         #速度设定
         self.speed_factor_2 = 0.5
-        self.curtain_bullet_speed = Settings.get_speed(mode) * self.speed_factor_2
+        self.curtain_bullet_speed = Settings.get_speed() * self.speed_factor_2
 
     def update(self):
         self.x += self.curtain_bullet_speed*math.cos(self.angle*math.pi/180)
@@ -57,7 +57,7 @@ class CurtainBullet_2(Sprite):
 ###########################################################
 
 class CurtainBullet_3(Sprite):
-    def __init__(self,screen,angle,mode):
+    def __init__(self,screen,angle):
         super().__init__()
         self.screen = screen
         self.curtain_bullet = pygame.image.load('images/curtain_bullet2.bmp')
@@ -71,7 +71,7 @@ class CurtainBullet_3(Sprite):
 
         #速度设定
         self.speed_factor_3 = 1
-        self.curtain_bullet_speed = Settings.get_speed(mode) * self.speed_factor_3
+        self.curtain_bullet_speed = Settings.get_speed() * self.speed_factor_3
 
     def update(self):
         self.x += self.curtain_bullet_speed*math.cos(self.angle*math.pi/180)

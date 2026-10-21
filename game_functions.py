@@ -70,20 +70,20 @@ def bullets_fire(screen,ship,bullets):
         ship.last_fire_time = pygame.time.get_ticks()
 
 
-def curtain_bullets_fire_1(screen,aliens,curtain_bullets,mode):
-    curtain_bullet_speed = Settings.get_speed(mode)
+def curtain_bullets_fire_1(screen,aliens,curtain_bullets):
+    curtain_bullet_speed = Settings.get_speed()
     dir = 1 #旋转方向
     for alien in aliens.copy():
         if not alien.firing:
             continue
         if (pygame.time.get_ticks() - alien.last_fire_time1 >= Settings.get_Const("alien_fire_cooldown_1")) and pygame.time.get_ticks() < 25000:
-            new_bullet = CurtainBullet_1(screen,mode)
+            new_bullet = CurtainBullet_1(screen)
             curtain_bullets.add(new_bullet)
             alien.last_fire_time1 = pygame.time.get_ticks()
         if (pygame.time.get_ticks() - alien.last_fire_time2 >= Settings.get_Const("alien_fire_cooldown_2") / curtain_bullet_speed) \
                 and 10000 < pygame.time.get_ticks() < 25000:
             for i in range(1,41):
-                new_bullet = CurtainBullet_2(screen,9*i,mode)
+                new_bullet = CurtainBullet_2(screen,9*i)
                 curtain_bullets.add(new_bullet)
                 alien.last_fire_time2 = pygame.time.get_ticks()
         if (pygame.time.get_ticks() - alien.last_fire_time2 >= Settings.get_Const("alien_fire_cooldown_3") / curtain_bullet_speed) \
@@ -93,7 +93,7 @@ def curtain_bullets_fire_1(screen,aliens,curtain_bullets,mode):
             if alien.omega < Settings.get_Const("alien_omega_min"):
                 dir = 1  #角度过小时正向旋转
             for i in range(1,30):
-                new_bullet = CurtainBullet_3(screen,12*i+pygame.time.get_ticks()*alien.omega,mode)
+                new_bullet = CurtainBullet_3(screen,12*i+pygame.time.get_ticks()*alien.omega)
                 curtain_bullets.add(new_bullet)
                 alien.last_fire_time2 = pygame.time.get_ticks()
                 alien.omega += Settings.get_Const("alien_beta") * dir
