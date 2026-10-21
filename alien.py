@@ -25,8 +25,9 @@ class Alien(Sprite):
         self.moving_down = False
         self.moving_slow = False
         self.firing = False
-        self.last_fire_time1 = 0
-        self.last_fire_time2 = 0
+        self.last_fire_time_1 = 0
+        self.last_fire_time_2 = 0
+        self.last_fire_time_3 = 0
 
     def update(self):
         #更新位置

@@ -4,7 +4,6 @@ from hit_point import Hitbox
 from settings import Settings
 
 class Ship(Sprite):
-    
     def __init__(self,screen):
         super().__init__()
 
@@ -15,7 +14,7 @@ class Ship(Sprite):
         self.screen_rect = screen.get_rect()
 
         #碰撞箱初始化
-        self.hitbox = Hitbox(size=Settings.get_Const("ship_hitbox_size"))
+        self.hitbox = Hitbox(Settings.get_Const("ship_hitbox_size"))
 
         #位置初始化
         self.rect.centerx = self.screen_rect.centerx
@@ -68,5 +67,3 @@ class Ship(Sprite):
     def blitme(self):
         #绘制ship
         self.screen.blit(self.ship,self.rect)
-
-

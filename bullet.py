@@ -1,18 +1,63 @@
 import pygame
+import random
+import math
 from pygame.sprite import Sprite
 from settings import Settings
 
 class Bullet(Sprite):
-    def __init__(self,screen,ship):
+    def __init__(self,screen,load_image,factor,rect_size,angle):
         #初始化
         super().__init__()
-
-        #显示初始化
-        self.bullet = pygame.image.load('images/bullet.bmp')
         self.screen = screen
+        self.screen_rect = screen.get_rect()
+        self.angle = angle
 
+        self.bullet = pygame.image.load(load_image)
+        self.rect = pygame.Rect(0,0,rect_size.width,rect_size.height)
+
+        #速度设置
+        self.bullet_speed = Settings.get_speed() * factor
+
+    def update(self):
+        self.x += self.bullet_speed * math.cos(self.angle*math.pi/180)
+        self.y += self.bullet_speed * math.sin(self.angle*math.pi/180)
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
+
+    def draw_bullet(self):
+        #更新显示
+        self.screen.blit(self.bullet,self.rect)
+
+class Curtain_Bullet_1(Bullet):
+    def __init__(self,screen):
+        super().__init__(screen,'images/curtain_bullet.bmp',1,Settings.get_Const("curtain_bullet_1_size"),90)
+        self.x = random.randint(0,Settings.get_Const("screen_width"))
+        self.y = random.randint(20,30)
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
+
+class Curtain_Bullet_2(Bullet):
+    def __init__(self,screen,angle):
+        super().__init__(screen,'images/curtain_bullet2.bmp',0.5,Settings.get_Const("curtain_bullet_2_size"),angle)
+        self.x = self.screen_rect.centerx
+        self.y = 0
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
+
+class Curtain_Bullet_3(Bullet):
+    def __init__(self,screen,angle):
+        super().__init__(screen,'images/curtain_bullet2.bmp',1,Settings.get_Const("curtain_bullet_3_size"),angle)
+        self.x = self.screen_rect.centerx
+        self.y = 0
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
+
+class Ship_Bullet(Bullet):
+    def __init__(self,screen,ship):
+        #初始化
+        super().__init__(screen,'images/ship_bullet.bmp',1,Settings.get_Const("bullet_size"),-90)
+        
         #位置初始化
-        self.rect = self.bullet.get_rect()
         self.rect.centerx = ship.rect.centerx
         self.rect.centery = ship.rect.top
         self.y = float(self.rect.y)
@@ -21,12 +66,6 @@ class Bullet(Sprite):
         #参数初始化
         self.speed = Settings.get_Const("bullet_speed")
 
-    def update(self):
-        #更新位置(背景子弹始终是下降的)
-        self.y -= self.speed
-        self.rect.y = int(self.y)
-
     def draw_bullet(self):
         #绘制bullet
         self.screen.blit(self.bullet,self.rect)
-

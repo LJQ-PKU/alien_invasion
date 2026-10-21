@@ -1,3 +1,8 @@
+class Rect_size:
+    def __init__(self,width,height):
+        self.width = width
+        self.height = height
+
 class Settings:
     _Setting = {
         #屏幕设置
@@ -25,7 +30,12 @@ class Settings:
         #bullet参数设置
         "bullet_speed":1.5,
         "bullet_interval":50,
-        
+        "bullet_size":Rect_size(5,27),
+
+        #curtain_bullet参数设置(Tips:碰撞箱大小记得调)
+        "curtain_bullet_1_size":Rect_size(1,1),
+        "curtain_bullet_2_size":Rect_size(1,1),
+        "curtain_bullet_3_size":Rect_size(1,1),
         
         #单帧时间(ms)
         "frame_time":600
@@ -34,7 +44,6 @@ class Settings:
     _mode = 1
     _speed_settings = [0.5,0.25,0.5,0.65,0.75]
     _ship_invulnerable = False
-
 
     def get_Const(constname):
         return Settings._Setting[constname]

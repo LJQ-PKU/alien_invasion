@@ -6,8 +6,6 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 import game_functions as gf
-from bullet import Bullet
-from alien import Alien
 
 def run_game():
 
@@ -24,13 +22,14 @@ def run_game():
                 Settings.set_ship_invulnerable()
             if mode >= 0 and mode <= 4:
                 break
-            print('难度无效:(\n')
+            print('\n难度无效:(\n')
         finally:
-            time.sleep(2)
-
+            time.sleep(1)
+    time.sleep(1)
+    
     #进程初始化
     pygame.init()
-    screen = pygame.display.set_mode((Settings.get_Const("screen_width"), Settings.get_Const("screen_height")))
+    screen = pygame.display.set_mode((Settings.get_Const("screen_width"),Settings.get_Const("screen_height")))
     clock = pygame.time.Clock()
     pygame.display.set_caption('alien invasion')
     Settings.set_game_mode(mode)

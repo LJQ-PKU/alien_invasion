@@ -1,17 +1,16 @@
 import pygame
-from pygame.sprite import Sprite
 from settings import Settings
 
 class Hitbox():
-    def __init__(self,size=6):
+    def __init__(self,size):
         #初始化碰撞箱
-        self.rect = pygame.Rect(0, 0, size, size)
+        self.rect = pygame.Rect(0,0,size,size)
 
-    def follow(self,ship_rect):
+    def follow(self,object_rect):
         #更新碰撞箱位置
-        self.rect.center = ship_rect.center
+        self.rect.center = object_rect.center
 
-    def hits_any(self,curtain_bullets,ship):
+    def hits_any(self,bullets,ship):
         #伤害判定
 
         #测试模式下不进行伤害判定
@@ -22,10 +21,10 @@ class Hitbox():
         if pygame.time.get_ticks() - ship.last_hurt_time < Settings.get_Const("ship_invulnerable_time"):
             return
         
-        for b in curtain_bullets:
+        for b in bullets:
             if self.rect.colliderect(b.rect):
                 ship.hp -= 1
-                print('get hurt! hp='+str(ship.hp))
+                print('get hurt! HP='+str(ship.hp))
                 #更新上次受伤时间
                 ship.last_hurt_time = pygame.time.get_ticks()
                 #子弹造成伤害后移除
@@ -33,4 +32,4 @@ class Hitbox():
 
     def draw(self,screen):
         #绘制
-        pygame.draw.rect(screen, (0, 255, 255), self.rect)
+        pygame.draw.rect(screen,(0,255,255),self.rect)
