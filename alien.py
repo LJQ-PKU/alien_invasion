@@ -13,7 +13,6 @@ class Alien(Sprite):
         self.rect.centerx = self.screen_rect.centerx
         self.rect.top = self.screen_rect.top
         self.hp = Settings.get_Const("alien_max_hp")
-        self.omega = 0
         self.alien_speed = Settings.get_Const("alien_speed")
 
         #初始化位置与状态
@@ -28,6 +27,7 @@ class Alien(Sprite):
         self.last_fire_time_1 = 0
         self.last_fire_time_2 = 0
         self.last_fire_time_3 = 0
+        self.omega = 0
 
     def update(self):
         #更新位置
@@ -40,13 +40,6 @@ class Alien(Sprite):
         if self.moving_down:
             self.centery += self.alien_speed
 
-
     def blitme(self):
         #更新显示
         self.screen.blit(self.alien, self.rect)
-
-
-
-
-
-

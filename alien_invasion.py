@@ -5,7 +5,7 @@ from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
-import game_functions as gf
+import game_functions
 
 def run_game():
 
@@ -26,7 +26,7 @@ def run_game():
         finally:
             time.sleep(1)
     time.sleep(1)
-    
+
     #进程初始化
     pygame.init()
     screen = pygame.display.set_mode((Settings.get_Const("screen_width"),Settings.get_Const("screen_height")))
@@ -39,19 +39,19 @@ def run_game():
     bullets = Group()
     aliens = Group()
     curtain_bullets = pygame.sprite.Group()
-    gf.create_alien(screen,aliens)
+    game_functions.create_alien(screen,aliens)
 
     #单帧循环
     while True:
-        gf.check_events(ship)
-        gf.curtain_fire(aliens)
-        ship.update()
-        gf.bullets_fire(screen,ship,bullets)
-        gf.update_bullets(bullets,aliens,curtain_bullets)
-        gf.curtain_bullets_fire_1(screen,aliens,curtain_bullets)
-        gf.check_ship_hit(ship,curtain_bullets)
-        gf.update_screen(screen,ship,aliens,bullets,curtain_bullets)
-        clock.tick(Settings.get_Const("frame_time"))
+        game_functions.check_events(ship)
+        game_functions.curtain_fire(aliens)
+        game_functions.ship_update(ship)
+        game_functions.bullets_fire(screen,ship,bullets)
+        game_functions.update_bullets(bullets,aliens,curtain_bullets)
+        game_functions.curtain_bullets_fire_1(screen,aliens,curtain_bullets)
+        game_functions.check_ship_hit(ship,curtain_bullets)
+        game_functions.update_screen(screen,ship,aliens,bullets,curtain_bullets)
+        clock.tick(Settings.get_Const("max_FPS"))
 
         if ship.hp <= 0:
             #飞船生命非正时结束游戏

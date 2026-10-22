@@ -36,9 +36,8 @@ class Settings:
         "curtain_bullet_1_size":Rect_size(1,1),
         "curtain_bullet_2_size":Rect_size(1,1),
         "curtain_bullet_3_size":Rect_size(1,1),
-        
-        #单帧时间(ms)
-        "frame_time":600
+
+        "max_FPS":600
     }#所有常量
 
     _mode = 1

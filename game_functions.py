@@ -47,6 +47,7 @@ def update_screen(screen,ship,aliens,bullets,curtain_bullets):
     screen.fill(Settings.get_Const("bg_color"))
     ship.blitme()
     ship.hitbox.draw(screen)
+
     for bullet in bullets:
         bullet.draw_bullet()
     for alien in aliens:
@@ -65,8 +66,12 @@ def bullets_fire(screen,ship,bullets):
         ship.last_fire_time = pygame.time.get_ticks()
 
 def curtain_bullets_fire_1(screen,aliens,curtain_bullets):
+    #敌人开火
     bullet_speed = Settings.get_speed()
-    dir = 1 #旋转方向
+    
+    #初始旋转方向
+    dir = 1
+
     for alien in aliens.copy():
         if not alien.firing:
             continue
@@ -114,10 +119,13 @@ def update_bullets(bullets,aliens,curtain_bullets):
     for alien in aliens.copy():
         if alien.hp <= 0:
             aliens.remove(alien)
+
+    #子弹不在屏幕内时移除
     for curtain_bullet in curtain_bullets.copy():
         if not bullets_in_screen(curtain_bullet.rect):
             curtain_bullets.remove(curtain_bullet)
 
+    #子弹击中敌人时造成伤害
     collisions = pygame.sprite.groupcollide(bullets,aliens,True,False)
     for collision in collisions:
         for alien in collisions[collision]:
@@ -133,3 +141,6 @@ def curtain_fire(aliens):
 
 def check_ship_hit(ship,curtain_bullets):
     ship.hitbox.hits_any(curtain_bullets,ship)
+
+def ship_update(ship):
+    ship.update()

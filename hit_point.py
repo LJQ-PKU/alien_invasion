@@ -21,14 +21,14 @@ class Hitbox():
         if pygame.time.get_ticks() - ship.last_hurt_time < Settings.get_Const("ship_invulnerable_time"):
             return
         
-        for b in bullets:
-            if self.rect.colliderect(b.rect):
+        for bullet in bullets:
+            if self.rect.colliderect(bullet.rect):
                 ship.hp -= 1
                 print('get hurt! HP='+str(ship.hp))
                 #更新上次受伤时间
                 ship.last_hurt_time = pygame.time.get_ticks()
                 #子弹造成伤害后移除
-                b.kill()
+                bullet.kill()
 
     def draw(self,screen):
         #绘制
