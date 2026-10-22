@@ -1,4 +1,3 @@
-import sys
 import time
 import pygame
 from pygame.sprite import Group

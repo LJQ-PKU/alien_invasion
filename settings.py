@@ -1,5 +1,5 @@
 class Rect_size:
-    def __init__(self,width,height):
+    def __init__(self,width:float,height:float):
         self.width = width
         self.height = height
 
@@ -44,19 +44,19 @@ class Settings:
     _speed_settings = [0.5,0.25,0.5,0.65,0.75]
     _ship_invulnerable = False
 
-    def get_Const(constname):
+    def get_Const(self,constname:str):
         return Settings._Setting[constname]
 
-    def get_speed():
+    def get_speed(self):
         return Settings._speed_settings[Settings._mode]
 
-    def set_game_mode(mode_input):
+    def set_game_mode(self,mode_input:int):
         Settings._mode = mode_input
         return
 
-    def set_ship_invulnerable():
+    def set_ship_invulnerable(self):
         Settings._ship_invulnerable = True
         return
 
-    def ship_invulnerable():
+    def ship_invulnerable(self):
         return Settings._ship_invulnerable

@@ -3,10 +3,11 @@ import random
 import math
 
 from pygame.sprite import Sprite
-from settings import Settings
+from settings import Settings,Rect_size
+from ship import Ship
 
 class Bullet(Sprite):
-    def __init__(self,screen,load_image,factor,rect_size,angle):
+    def __init__(self,screen:pygame.Surface,load_image,factor:float,rect_size:Rect_size,angle:float):
         #初始化
         super().__init__()
         self.screen = screen
@@ -30,7 +31,7 @@ class Bullet(Sprite):
         self.screen.blit(self.bullet,self.rect)
 
 class Curtain_Bullet_1(Bullet):
-    def __init__(self,screen):
+    def __init__(self,screen:pygame.Surface):
         #调用Bullet初始化
         super().__init__(screen,'images/curtain_bullet.bmp',1,Settings.get_Const("curtain_bullet_1_size"),90)
 
@@ -41,7 +42,7 @@ class Curtain_Bullet_1(Bullet):
         self.rect.y = int(self.y)
 
 class Curtain_Bullet_2(Bullet):
-    def __init__(self,screen,angle):
+    def __init__(self,screen:pygame.Surface,angle:float):
         #调用Bullet初始化
         super().__init__(screen,'images/curtain_bullet2.bmp',0.5,Settings.get_Const("curtain_bullet_2_size"),angle)
 
@@ -52,7 +53,7 @@ class Curtain_Bullet_2(Bullet):
         self.rect.y = int(self.y)
 
 class Curtain_Bullet_3(Bullet):
-    def __init__(self,screen,angle):
+    def __init__(self,screen:pygame.Surface,angle:float):
         #调用Bullet初始化
         super().__init__(screen,'images/curtain_bullet2.bmp',1,Settings.get_Const("curtain_bullet_3_size"),angle)
 
@@ -63,7 +64,7 @@ class Curtain_Bullet_3(Bullet):
         self.rect.y = int(self.y)
 
 class Ship_Bullet(Bullet):
-    def __init__(self,screen,ship):
+    def __init__(self,screen:pygame.Surface,ship:Ship):
         #调用Bullet初始化
         super().__init__(screen,'images/ship_bullet.bmp',1,Settings.get_Const("bullet_size"),-90)
         

@@ -4,7 +4,7 @@ from hit_point import Hitbox
 from settings import Settings
 
 class Ship(Sprite):
-    def __init__(self,screen):
+    def __init__(self,screen:pygame.Surface):
         super().__init__()
 
         #初始化
