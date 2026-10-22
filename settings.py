@@ -44,19 +44,19 @@ class Settings:
     _speed_settings = [0.5,0.25,0.5,0.65,0.75]
     _ship_invulnerable = False
 
-    def get_Const(self,constname:str):
+    def get_Const(constname:str):
         return Settings._Setting[constname]
 
-    def get_speed(self):
+    def get_speed():
         return Settings._speed_settings[Settings._mode]
 
-    def set_game_mode(self,mode_input:int):
+    def set_game_mode(mode_input:int):
         Settings._mode = mode_input
         return
 
-    def set_ship_invulnerable(self):
+    def set_ship_invulnerable():
         Settings._ship_invulnerable = True
         return
 
-    def ship_invulnerable(self):
+    def ship_invulnerable():
         return Settings._ship_invulnerable
