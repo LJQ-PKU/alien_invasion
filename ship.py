@@ -3,10 +3,12 @@ from pygame.sprite import Sprite
 from settings import Settings,Rect_size
 
 class Ship(Sprite):
+    #飞船类
     def __init__(self,screen:pygame.surface.Surface):
+        #初始化
         super().__init__()
 
-        #初始化
+        #显示初始化
         self.screen = screen
         self.ship = pygame.image.load('images/shooter.bmp')
         self.rect = self.ship.get_rect()
@@ -31,10 +33,11 @@ class Ship(Sprite):
         self.last_fire_time = 0
 
         #参数初始化
-        self.hp = Settings.get_Const("ship_max_hp")
+        self.current_HP = Settings.get_Const("ship_max_HP")
         self.last_hurt_time = 0
 
     def update(self):
+        #更新位置
         ship_speed_slow = Settings.get_Const("ship_speed_slow") if self.moving_slow else Settings.get_Const("ship_speed")
         if self.moving_left and self.rect.left > self.screen_rect.left:
             self.centerx -= ship_speed_slow
@@ -76,8 +79,8 @@ class Hitbox():
         
         for bullet in bullets:
             if self.rect.colliderect(bullet.rect):
-                ship.hp -= 1
-                print('get hurt! HP='+str(ship.hp))
+                ship.current_HP -= 1
+                print('get hurt! HP='+str(ship.current_HP))
                 #更新上次受伤时间
                 ship.last_hurt_time = pygame.time.get_ticks()
                 #子弹造成伤害后移除

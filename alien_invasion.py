@@ -1,6 +1,5 @@
 import time
 import pygame
-from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
@@ -8,7 +7,7 @@ import game_functions
 
 def run_game():
 
-    #难度设定
+    #难度设置
     while True:
         mode_string = input('选择难度\n1.easy\n2.normal\n3.hard\n4.lunatic\n')
         try:
@@ -52,7 +51,7 @@ def run_game():
         game_functions.update_screen(screen,ship,aliens,bullets,curtain_bullets)
         clock.tick(Settings.get_Const("max_FPS"))
 
-        if ship.hp <= 0:
+        if ship.current_HP <= 0:
             #飞船生命非正时结束游戏
             print('game over\n')
             break

@@ -44,10 +44,9 @@ def check_events(ship:Ship):
 
 def update_screen(screen:pygame.surface.Surface,ship:Ship,aliens:pygame.sprite.Group,bullets:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
     #更新显示
-    screen.fill(Settings.get_Const("bg_color"))
+    screen.fill(Settings.get_Const("background_color"))
     ship.blitme()
     ship.hitbox.draw(screen)
-
     for bullet in bullets:
         bullet.draw_bullet()
     for alien in aliens:
@@ -75,16 +74,19 @@ def curtain_bullets_fire_1(screen:pygame.surface.Surface,aliens:pygame.sprite.Gr
     for alien in aliens.copy():
         if not alien.firing:
             continue
+        #子弹1
         if (pygame.time.get_ticks() - alien.last_fire_time_1 >= Settings.get_Const("alien_fire_cooldown_1")) and pygame.time.get_ticks() < 25000:
             new_bullet = Curtain_Bullet_1(screen)
             curtain_bullets.add(new_bullet)
             alien.last_fire_time_1 = pygame.time.get_ticks()
+        #子弹2
         if (pygame.time.get_ticks() - alien.last_fire_time_2 >= Settings.get_Const("alien_fire_cooldown_2") / bullet_speed) \
                 and 10000 < pygame.time.get_ticks() < 25000:
             for i in range(1,41):
                 new_bullet = Curtain_Bullet_2(screen,9*i)
                 curtain_bullets.add(new_bullet)
                 alien.last_fire_time_2 = pygame.time.get_ticks()
+        #子弹3
         if (pygame.time.get_ticks() - alien.last_fire_time_3 >= Settings.get_Const("alien_fire_cooldown_3") / bullet_speed) \
                 and 28000 < pygame.time.get_ticks():
             if alien.omega > Settings.get_Const("alien_omega_max"):
@@ -117,7 +119,7 @@ def update_bullets(bullets:pygame.sprite.Group,aliens:pygame.sprite.Group,curtai
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
     for alien in aliens.copy():
-        if alien.hp <= 0:
+        if alien.current_HP <= 0:
             aliens.remove(alien)
 
     #子弹不在屏幕内时移除
@@ -129,18 +131,22 @@ def update_bullets(bullets:pygame.sprite.Group,aliens:pygame.sprite.Group,curtai
     collisions = pygame.sprite.groupcollide(bullets,aliens,True,False)
     for collision in collisions:
         for alien in collisions[collision]:
-            alien.hp -= 1
+            alien.current_HP -= 1
 
 def create_alien(screen:pygame.surface.Surface,aliens:pygame.sprite.Group):
+    #创建alien
     new_alien = Alien(screen)
     aliens.add(new_alien)
 
 def curtain_fire(aliens:pygame.sprite.Group):
+    #设置alien为开火状态
     for alien in aliens:
         alien.firing = True
 
 def check_ship_hit(ship:Ship,curtain_bullets:pygame.sprite.Group):
+    #飞船受伤判定
     ship.hitbox.hits_any(curtain_bullets,ship)
 
 def ship_update(ship:Ship):
+    #飞船更新
     ship.update()

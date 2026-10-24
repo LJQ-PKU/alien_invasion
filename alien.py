@@ -12,7 +12,7 @@ class Alien(Sprite):
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx
         self.rect.top = self.screen_rect.top
-        self.hp = Settings.get_Const("alien_max_hp")
+        self.current_HP = Settings.get_Const("alien_max_HP")
         self.alien_speed = Settings.get_Const("alien_speed")
 
         #初始化位置与状态
@@ -26,7 +26,7 @@ class Alien(Sprite):
         self.firing = False
         self.last_fire_time_1 = 0
         self.last_fire_time_2 = 0
-        self.last_fire_time_3 = 0
+        self.last_fire_time_3 = 0 #这里不同开火方式的攻击冷却独立计算,因此定义多个上次开火时间方便判定
         self.omega = 0
 
     def update(self):

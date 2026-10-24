@@ -7,6 +7,7 @@ from settings import Settings,Rect_size
 from ship import Ship
 
 class Bullet(Sprite):
+    #所有子弹的父类
     def __init__(self,screen:pygame.surface.Surface,load_image,factor:float,rect_size:Rect_size,angle:float):
         #初始化
         super().__init__()
@@ -21,6 +22,7 @@ class Bullet(Sprite):
         self.bullet_speed = Settings.get_speed() * factor
 
     def update(self):
+        #更新位置
         self.x += self.bullet_speed * math.cos(self.angle*math.pi/180)
         self.y += self.bullet_speed * math.sin(self.angle*math.pi/180)
         self.rect.x = int(self.x)
@@ -31,6 +33,7 @@ class Bullet(Sprite):
         self.screen.blit(self.bullet,self.rect)
 
 class Curtain_Bullet_1(Bullet):
+    #alien子弹1
     def __init__(self,screen:pygame.surface.Surface):
         #调用Bullet初始化
         super().__init__(screen,'images/curtain_bullet.bmp',1,Settings.get_Const("curtain_bullet_1_size"),90)
@@ -42,6 +45,7 @@ class Curtain_Bullet_1(Bullet):
         self.rect.y = int(self.y)
 
 class Curtain_Bullet_2(Bullet):
+    #alien子弹2
     def __init__(self,screen:pygame.surface.Surface,angle:float):
         #调用Bullet初始化
         super().__init__(screen,'images/curtain_bullet2.bmp',0.5,Settings.get_Const("curtain_bullet_2_size"),angle)
@@ -53,6 +57,7 @@ class Curtain_Bullet_2(Bullet):
         self.rect.y = int(self.y)
 
 class Curtain_Bullet_3(Bullet):
+    #alien子弹3
     def __init__(self,screen:pygame.surface.Surface,angle:float):
         #调用Bullet初始化
         super().__init__(screen,'images/curtain_bullet2.bmp',1,Settings.get_Const("curtain_bullet_3_size"),angle)
@@ -64,6 +69,7 @@ class Curtain_Bullet_3(Bullet):
         self.rect.y = int(self.y)
 
 class Ship_Bullet(Bullet):
+    #ship子弹
     def __init__(self,screen:pygame.surface.Surface,ship:Ship):
         #调用Bullet初始化
         super().__init__(screen,'images/ship_bullet.bmp',1,Settings.get_Const("bullet_size"),-90)
