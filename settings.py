@@ -13,7 +13,7 @@ class Settings:
         #ship参数设置
         "ship_speed":1,
         "ship_speed_slow":0.35,
-        "ship_hitbox_size":8,
+        "ship_size":Rect_size(8,8),
         "ship_max_hp":10,
         "ship_invulnerable_time":1000,#ms
 
@@ -30,7 +30,7 @@ class Settings:
         #bullet参数设置
         "bullet_speed":1.5,
         "bullet_interval":50,
-        "bullet_size":Rect_size(5,27),
+        "bullet_size":Rect_size(5,27),#这个是从图片上读出来的
 
         #curtain_bullet参数设置(Tips:碰撞箱大小记得调)
         "curtain_bullet_1_size":Rect_size(1,1),

@@ -1,9 +1,9 @@
 import pygame
 from pygame.sprite import Sprite
-from settings import Settings
+from settings import Settings,Rect_size
 
 class Ship(Sprite):
-    def __init__(self,screen:pygame.Surface):
+    def __init__(self,screen:pygame.surface.Surface):
         super().__init__()
 
         #初始化
@@ -13,7 +13,7 @@ class Ship(Sprite):
         self.screen_rect = screen.get_rect()
 
         #碰撞箱初始化
-        self.hitbox = Hitbox(Settings.get_Const("ship_hitbox_size"))
+        self.hitbox = Hitbox(Settings.get_Const("ship_size"))
 
         #位置初始化
         self.rect.centerx = self.screen_rect.centerx
@@ -35,28 +35,15 @@ class Ship(Sprite):
         self.last_hurt_time = 0
 
     def update(self):
-        if self.moving_slow:
-            #慢速移动
-            ship_speed_slow = Settings.get_Const("ship_speed_slow")
-            if self.moving_left and self.rect.left > self.screen_rect.left:
-                self.centerx -= ship_speed_slow
-            if self.moving_right and self.rect.right < self.screen_rect.right:
-                self.centerx += ship_speed_slow
-            if self.moving_up and self.rect.top > self.screen_rect.top:
-                self.centery -= ship_speed_slow
-            if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
-                self.centery += ship_speed_slow
-        else:
-            #快速移动
-            ship_speed = Settings.get_Const("ship_speed")
-            if self.moving_left and self.rect.left > self.screen_rect.left:
-                self.centerx -= ship_speed
-            if self.moving_right and self.rect.right < self.screen_rect.right:
-                self.centerx += ship_speed
-            if self.moving_up and self.rect.top > self.screen_rect.top:
-                self.centery -= ship_speed
-            if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
-                self.centery += ship_speed
+        ship_speed_slow = Settings.get_Const("ship_speed_slow") if self.moving_slow else Settings.get_Const("ship_speed")
+        if self.moving_left and self.rect.left > self.screen_rect.left:
+            self.centerx -= ship_speed_slow
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.centerx += ship_speed_slow
+        if self.moving_up and self.rect.top > self.screen_rect.top:
+            self.centery -= ship_speed_slow
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.centery += ship_speed_slow
         
         #更新中心位置
         self.rect.centerx = self.centerx
@@ -68,11 +55,11 @@ class Ship(Sprite):
         self.screen.blit(self.ship,self.rect)
 
 class Hitbox():
-    def __init__(self,size:float):
+    def __init__(self,size:Rect_size):
         #初始化碰撞箱
-        self.rect = pygame.Rect(0,0,size,size)
+        self.rect = pygame.rect.Rect(0,0,size.width,size.height)
 
-    def follow(self,object_rect:pygame.Rect):
+    def follow(self,object_rect:pygame.rect.Rect):
         #更新碰撞箱位置
         self.rect.center = object_rect.center
 
@@ -96,6 +83,6 @@ class Hitbox():
                 #子弹造成伤害后移除
                 bullet.kill()
 
-    def draw(self,screen:pygame.Surface):
+    def draw(self,screen:pygame.surface.Surface):
         #绘制
         pygame.draw.rect(screen,(0,255,255),self.rect)

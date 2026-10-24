@@ -42,7 +42,7 @@ def check_events(ship:Ship):
                     case pygame.K_z:
                         ship.firing = False
 
-def update_screen(screen:pygame.Surface,ship:Ship,aliens:pygame.sprite.Group,bullets:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
+def update_screen(screen:pygame.surface.Surface,ship:Ship,aliens:pygame.sprite.Group,bullets:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
     #更新显示
     screen.fill(Settings.get_Const("bg_color"))
     ship.blitme()
@@ -56,7 +56,7 @@ def update_screen(screen:pygame.Surface,ship:Ship,aliens:pygame.sprite.Group,bul
         curtain_fire.draw_bullet()
     pygame.display.flip()
 
-def bullets_fire(screen:pygame.Surface,ship:Ship,bullets:pygame.sprite.Group):
+def bullets_fire(screen:pygame.surface.Surface,ship:Ship,bullets:pygame.sprite.Group):
     #飞船开火
     if not ship.firing:
         return
@@ -65,7 +65,7 @@ def bullets_fire(screen:pygame.Surface,ship:Ship,bullets:pygame.sprite.Group):
         bullets.add(new_bullet)
         ship.last_fire_time = pygame.time.get_ticks()
 
-def curtain_bullets_fire_1(screen:pygame.Surface,aliens:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
+def curtain_bullets_fire_1(screen:pygame.surface.Surface,aliens:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
     #敌人开火
     bullet_speed = Settings.get_speed()
     
@@ -97,7 +97,7 @@ def curtain_bullets_fire_1(screen:pygame.Surface,aliens:pygame.sprite.Group,curt
                 alien.last_fire_time_3 = pygame.time.get_ticks()
                 alien.omega += Settings.get_Const("alien_beta") * dir
 
-def bullets_in_screen(curtain_bullet_rect:pygame.Rect):
+def bullets_in_screen(curtain_bullet_rect:pygame.rect.Rect):
     #判定子弹是否仍在屏幕内
     if curtain_bullet_rect.bottom <= -100:
         return False
@@ -131,7 +131,7 @@ def update_bullets(bullets:pygame.sprite.Group,aliens:pygame.sprite.Group,curtai
         for alien in collisions[collision]:
             alien.hp -= 1
 
-def create_alien(screen:pygame.Surface,aliens:pygame.sprite.Group):
+def create_alien(screen:pygame.surface.Surface,aliens:pygame.sprite.Group):
     new_alien = Alien(screen)
     aliens.add(new_alien)
 

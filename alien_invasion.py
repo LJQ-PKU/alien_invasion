@@ -35,8 +35,8 @@ def run_game():
 
     #单位初始化
     ship = Ship(screen)
-    bullets = Group()
-    aliens = Group()
+    bullets = pygame.sprite.Group()
+    aliens = pygame.sprite.Group()
     curtain_bullets = pygame.sprite.Group()
     game_functions.create_alien(screen,aliens)
 

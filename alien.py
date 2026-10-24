@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 from settings import Settings
 
 class Alien(Sprite):
-    def __init__(self,screen:pygame.Surface):
+    def __init__(self,screen:pygame.surface.Surface):
         #初始化
         super().__init__()
         self.screen = screen
