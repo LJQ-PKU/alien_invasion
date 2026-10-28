@@ -38,15 +38,15 @@ class Ship(Sprite):
 
     def update(self):
         #更新位置
-        ship_speed_slow = Settings.get_Const("ship_speed_slow") if self.moving_slow else Settings.get_Const("ship_speed")
+        ship_speed = Settings.get_Const("ship_speed_slow") if self.moving_slow else Settings.get_Const("ship_speed")
         if self.moving_left and self.rect.left > self.screen_rect.left:
-            self.centerx -= ship_speed_slow
+            self.centerx -= ship_speed
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.centerx += ship_speed_slow
+            self.centerx += ship_speed
         if self.moving_up and self.rect.top > self.screen_rect.top:
-            self.centery -= ship_speed_slow
+            self.centery -= ship_speed
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
-            self.centery += ship_speed_slow
+            self.centery += ship_speed
         
         #更新中心位置
         self.rect.centerx = self.centerx

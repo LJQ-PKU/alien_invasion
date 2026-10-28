@@ -14,9 +14,11 @@ def check_events(ship:Ship):
             case pygame.QUIT:
                 sys.exit()
             case pygame.KEYDOWN:
-                match event.key: 
+                match event.key:
+                    #左Shift键减速
                     case pygame.K_LSHIFT:
                         ship.moving_slow = True
+                    #方向键
                     case pygame.K_LEFT:
                         ship.moving_left = True
                     case pygame.K_RIGHT:
@@ -25,10 +27,12 @@ def check_events(ship:Ship):
                         ship.moving_up = True
                     case pygame.K_DOWN:
                         ship.moving_down = True
+                    #z键开火
                     case pygame.K_z:
                         ship.firing = True
             case pygame.KEYUP:
                 match event.key:
+                    #同上
                     case pygame.K_LSHIFT:
                         ship.moving_slow = False
                     case pygame.K_LEFT:
