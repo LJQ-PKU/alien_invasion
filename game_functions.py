@@ -1,23 +1,24 @@
 import sys
 import pygame
-from pygame.examples import aliens
+from settings import Settings
 
 #引入各单位
-import curtain_bullet
-from alien import Alien
-from bullet import Bullet
 from ship import Ship
-from curtain_bullet import CurtainBullet_1,CurtainBullet_2,CurtainBullet_3
+from alien import Alien
+from bullet import Ship_Bullet,Curtain_Bullet_1,Curtain_Bullet_2,Curtain_Bullet_3
 
-def check_events(ai_settings,screen,ship,bullets):
+def check_events(ship:Ship):
+    #键盘输入处理
     for event in pygame.event.get():
         match event.type:
             case pygame.QUIT:
                 sys.exit()
             case pygame.KEYDOWN:
-                match event.key: 
+                match event.key:
+                    #左Shift键减速
                     case pygame.K_LSHIFT:
                         ship.moving_slow = True
+                    #方向键
                     case pygame.K_LEFT:
                         ship.moving_left = True
                     case pygame.K_RIGHT:
@@ -26,10 +27,12 @@ def check_events(ai_settings,screen,ship,bullets):
                         ship.moving_up = True
                     case pygame.K_DOWN:
                         ship.moving_down = True
+                    #z键开火
                     case pygame.K_z:
                         ship.firing = True
             case pygame.KEYUP:
                 match event.key:
+                    #同上
                     case pygame.K_LSHIFT:
                         ship.moving_slow = False
                     case pygame.K_LEFT:
@@ -43,14 +46,11 @@ def check_events(ai_settings,screen,ship,bullets):
                     case pygame.K_z:
                         ship.firing = False
 
-
-def update_screen(ai_settings,screen,ship,aliens\
-                  ,bullets,curtain_bullets):
+def update_screen(screen:pygame.surface.Surface,ship:Ship,aliens:pygame.sprite.Group,bullets:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
     #更新显示
-    screen.fill(ai_settings.bg_color)
+    screen.fill(Settings.get_Const("background_color"))
     ship.blitme()
     ship.hitbox.draw(screen)
-
     for bullet in bullets:
         bullet.draw_bullet()
     for alien in aliens:
@@ -59,55 +59,63 @@ def update_screen(ai_settings,screen,ship,aliens\
         curtain_fire.draw_bullet()
     pygame.display.flip()
 
-def bullets_fire(ai_settings,screen,ship,bullets):
+def bullets_fire(screen:pygame.surface.Surface,ship:Ship,bullets:pygame.sprite.Group):
     #飞船开火
-    if (pygame.time.get_ticks() - ship.last_fire_time >= ai_settings.bullet_interval) and ship.firing:
-        new_bullet = Bullet(ai_settings,screen,ship)
+    if not ship.firing:
+        return
+    if pygame.time.get_ticks() - ship.last_fire_time >= Settings.get_Const("bullet_interval"):
+        new_bullet = Ship_Bullet(screen,ship)
         bullets.add(new_bullet)
         ship.last_fire_time = pygame.time.get_ticks()
 
+def curtain_bullets_fire_1(screen:pygame.surface.Surface,aliens:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
+    #敌人开火
+    bullet_speed = Settings.get_speed()
+    
+    #初始旋转方向
+    dir = 1
 
-def curtain_bullets_fire_1(ai_settings,screen,aliens,curtain_bullets):
-    dir = 1 #旋转方向
     for alien in aliens.copy():
         if not alien.firing:
             continue
-        if (pygame.time.get_ticks() - alien.last_fire_time1 >= alien.fire_cooldown_1) and pygame.time.get_ticks() < 25000:
-            new_bullet = CurtainBullet_1(ai_settings,screen)
+        #子弹1
+        if (pygame.time.get_ticks() - alien.last_fire_time_1 >= Settings.get_Const("alien_fire_cooldown_1")) and pygame.time.get_ticks() < 25000:
+            new_bullet = Curtain_Bullet_1(screen)
             curtain_bullets.add(new_bullet)
-            alien.last_fire_time1 = pygame.time.get_ticks()
-        if (pygame.time.get_ticks() - alien.last_fire_time2 >= alien.fire_cooldown_2 / ai_settings.curtain_bullet_speed) \
+            alien.last_fire_time_1 = pygame.time.get_ticks()
+        #子弹2
+        if (pygame.time.get_ticks() - alien.last_fire_time_2 >= Settings.get_Const("alien_fire_cooldown_2") / bullet_speed) \
                 and 10000 < pygame.time.get_ticks() < 25000:
             for i in range(1,41):
-                new_bullet = CurtainBullet_2(ai_settings,screen,9*i)
+                new_bullet = Curtain_Bullet_2(screen,9*i)
                 curtain_bullets.add(new_bullet)
-                alien.last_fire_time2 = pygame.time.get_ticks()
-        if (pygame.time.get_ticks() - alien.last_fire_time2 >= alien.fire_cooldown_3 / ai_settings.curtain_bullet_speed) \
+                alien.last_fire_time_2 = pygame.time.get_ticks()
+        #子弹3
+        if (pygame.time.get_ticks() - alien.last_fire_time_3 >= Settings.get_Const("alien_fire_cooldown_3") / bullet_speed) \
                 and 28000 < pygame.time.get_ticks():
-            if alien.omega > alien.omega_max:
+            if alien.omega > Settings.get_Const("alien_omega_max"):
                 dir = -1 #角度过大时反向旋转
-            if alien.omega < alien.omega_min:
+            if alien.omega < Settings.get_Const("alien_omega_min"):
                 dir = 1  #角度过小时正向旋转
             for i in range(1,30):
-                new_bullet = CurtainBullet_3(ai_settings,screen,12*i+pygame.time.get_ticks()*alien.omega)
+                new_bullet = Curtain_Bullet_3(screen,12*i+pygame.time.get_ticks()*alien.omega)
                 curtain_bullets.add(new_bullet)
-                alien.last_fire_time2 = pygame.time.get_ticks()
-                alien.omega += alien.beta * dir
+                alien.last_fire_time_3 = pygame.time.get_ticks()
+                alien.omega += Settings.get_Const("alien_beta") * dir
 
-def bullets_in_screen(curtain_bullet_rect,ai_settings):
+def bullets_in_screen(curtain_bullet_rect:pygame.rect.Rect):
     #判定子弹是否仍在屏幕内
     if curtain_bullet_rect.bottom <= -100:
         return False
-    if curtain_bullet_rect.top >= ai_settings.screen_height:
+    if curtain_bullet_rect.top >= Settings.get_Const("screen_height"):
         return False
     if curtain_bullet_rect.left <= 0:
         return False
-    if curtain_bullet_rect.right >= ai_settings.screen_width:
+    if curtain_bullet_rect.right >= Settings.get_Const("screen_width"):
         return False
     return True
 
-def update_bullets(bullets,aliens,\
-                   curtain_bullets,ai_settings):
+def update_bullets(bullets:pygame.sprite.Group,aliens:pygame.sprite.Group,curtain_bullets:pygame.sprite.Group):
     #子弹相关判定:消失 伤害
     bullets.update()
     curtain_bullets.update()
@@ -115,26 +123,34 @@ def update_bullets(bullets,aliens,\
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
     for alien in aliens.copy():
-        if alien.hp <= 0:
+        if alien.current_HP <= 0:
             aliens.remove(alien)
+
+    #子弹不在屏幕内时移除
     for curtain_bullet in curtain_bullets.copy():
-        if not bullets_in_screen(curtain_bullet.rect,ai_settings):
+        if not bullets_in_screen(curtain_bullet.rect):
             curtain_bullets.remove(curtain_bullet)
 
+    #子弹击中敌人时造成伤害并移除
     collisions = pygame.sprite.groupcollide(bullets,aliens,True,False)
     for collision in collisions:
         for alien in collisions[collision]:
-            alien.hp -= 1
+            alien.current_HP -= 1
 
-
-def create_alien(ai_settings,screen,aliens):
-    new_alien = Alien(ai_settings,screen)
+def create_alien(screen:pygame.surface.Surface,aliens:pygame.sprite.Group):
+    #创建alien
+    new_alien = Alien(screen)
     aliens.add(new_alien)
 
-def curtain_fire(aliens):
+def curtain_fire(aliens:pygame.sprite.Group):
+    #设置alien为开火状态
     for alien in aliens:
         alien.firing = True
 
-def check_ship_hit(ship, curtain_bullets):
+def check_ship_hit(ship:Ship,curtain_bullets:pygame.sprite.Group):
+    #飞船受伤判定
     ship.hitbox.hits_any(curtain_bullets,ship)
 
+def ship_update(ship:Ship):
+    #飞船更新
+    ship.update()
