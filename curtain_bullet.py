@@ -9,7 +9,7 @@ class CurtainBullet_1(Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         self.curtain_bullet = pygame.image.load('images/curtain_bullet.bmp')
-        self.rect = self.curtain_bullet.get_rect()
+        self.rect = pygame.Rect(0,0,self.ai_settings.curtain_bullet_width1,self.ai_settings.curtain_bullet_height1)
         self.x = random.randint(0,self.ai_settings.screen_width)
         self.y = random.randint(20,30)
         self.rect.x = int(self.x)
@@ -34,7 +34,7 @@ class CurtainBullet_2(Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         self.curtain_bullet = pygame.image.load('images/curtain_bullet2.bmp')
-        self.rect = self.curtain_bullet.get_rect()
+        self.rect = pygame.Rect(0,0,self.ai_settings.curtain_bullet_width2,self.ai_settings.curtain_bullet_height2)
         self.angle = angle
         self.screen_rect = screen.get_rect()
         self.x = self.screen_rect.centerx
@@ -63,7 +63,7 @@ class CurtainBullet_3(Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         self.curtain_bullet = pygame.image.load('images/curtain_bullet2.bmp')
-        self.rect = self.curtain_bullet.get_rect()
+        self.rect = pygame.Rect(0,0,self.ai_settings.curtain_bullet_width2,self.ai_settings.curtain_bullet_height2)
         self.angle = angle
         self.screen_rect = screen.get_rect()
         self.x = self.screen_rect.centerx
