@@ -14,7 +14,10 @@ class Settings():
         self.bullet_speed = 1.5
         self.bullet_interval = 50
         self.ship_hitbox_size = 8
-
+        self.curtain_bullet_width1 = 3
+        self.curtain_bullet_height1 = 6
+        self.curtain_bullet_width2 = 7
+        self.curtain_bullet_height2 = 7        
         #子弹速率设定
         self.speed_settings = [0.5,0.25,0.5,0.65,0.75]
         self.mode = mode
